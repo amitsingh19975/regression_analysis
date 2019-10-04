@@ -1,18 +1,21 @@
-# Disable in-source builds to prevent source tree corruption
-if (" ${CMAKE_SOURCE_DIR} " STREQUAL " ${CMAKE_BINARY_DIR} ")
+# Disable in-source builds to prevent source tree corruption.
+if(" ${CMAKE_SOURCE_DIR}" STREQUAL " ${CMAKE_BINARY_DIR}")
 message(FATAL_ERROR "
 FATAL: In-source builds are not allowed.
-You should create a seperate directory for build files.
+You should create a separate directory for build files.
 ")
 endif()
 
+set (CMAKE_FIND_LIBRARY_PREFIXES "lib")
+set (CMAKE_FIND_LIBRARY_SUFFIXES ".so;.a")
+
 find_library(GSL_LIB gsl)
-if (NOT GSL_LIB)
+if (${GSL_LIB} STREQUAL "${GSL_LIB}-NOTFOUND")
 message(FATAL_ERROR "
 FATAL: GSL library not found.
 Make sure GSL is installed.
 ")
-endfi()
+endif()
 
 cmake_minimum_required(VERSION 3.10)
 
