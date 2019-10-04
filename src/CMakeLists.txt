@@ -1,5 +1,5 @@
-file(GLOB_RECURSE HEADER_LIST CONFIGURE DEPENDS "${regression_model_SOURCE_DIR}/*.h")
-file(GLOB_RECURSE CFILE_LIST CONFIGURE DEPENDS "${regression_model_SOURCE_DIR}/*.c")
+file(GLOB_RECURSE HEADER_LIST CONFIGURE DEPENDS "${regression_model_SOURCE_DIR}/include/*.h")
+file(GLOB_RECURSE CFILE_LIST CONFIGURE DEPENDS "${regression_model_SOURCE_DIR}/include/*.c")
 #set(HEADER_LIST "${DAA_SOURCE_DIR}/include/daa.hpp")
 
 #add_library(${HEADER_LIST})
