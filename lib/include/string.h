@@ -28,13 +28,13 @@ typedef struct{
 } string;
 
 
-/**@brief str_init is use to initialize string
+/**@brief init_str is use to initialize string
  *
  * @param str type of string
  * @return STRING_ERROR code or 0 for no error
  *
  */
-int str_init( string* str );
+int init_str( string* str );
 
 /**@brief __new_str__ creates new string with specified capacity
  *
@@ -177,4 +177,44 @@ char* p_at(string* str, index_t i);
  */
 void print_str( const string* str );
 
+/**@brief clears the string
+ *
+ * @param str type of string
+ *
+ */
+void clear_str( string* s );
+
+/**@brief appends the character at the back 
+ *
+ * @param str type of string
+ * @param c type of char
+ *
+ */
+void push( string* s, char c );
+
+
+/**@brief removes the char from back 
+ *
+ * @param str type of string
+ * @return character from the back
+ *
+ */
+char pop( string* s );
+
+/**@brief tells if string is empty or not 
+ *
+ * @param str type of string
+ * @return 0 for false and 1 for true
+ *
+ */
+int empty( string* s);
+
+
+/**@brief gives the character at the last position
+ *
+ * @param str type of string
+ * @return character from back
+ *
+ */
+char top( string* s );
 #endif

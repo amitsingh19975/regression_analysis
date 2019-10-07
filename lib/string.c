@@ -12,11 +12,12 @@ int __new_str__(string* str, index_t cap){
 	}
 }
 
-int str_init( string* str ){
+int init_str( string* str ){
 	return __new_str__(str,24);
 }
 
 void delete_str( string* str ){
+	if( str == null ) return;
 	str->capacity = 0;
 	str->size = 0;
 	free( str->data );
@@ -32,7 +33,7 @@ int appendcs( string* dest, const char* src ){
 	if( cap <= new_size ){
 		while( cap <= new_size ) cap *= 2;
 	
-		dest->data = (char*)realloc( dest->data, cap );
+		dest->data = (char*)realloc( dest->data, cap * sizeof(char) );
 
 		if( dest->data == null ){
 			throw(allocation_error,"appendcs: unable to allocate memory");
@@ -67,7 +68,7 @@ int strcpycs( string* dest, const char* src ){
 	if( cap <= src_size ){
 		while( cap <= src_size ) cap *= 2;
 	
-		dest->data = (char*)realloc( dest->data, cap );
+		dest->data = (char*)realloc( dest->data, cap * sizeof(char) );
 	
 		if( dest->data == null ){
 			throw(allocation_error,"strcpycs: unable to allocate memory");
@@ -142,7 +143,7 @@ char* c_str( string* str ){
 
 string csts( const char* str ){
 	string temp;
-	str_init( &temp );
+	init_str( &temp );
 	appendcs( &temp, str );
 	return temp;
 }
@@ -176,5 +177,36 @@ char* p_at( string* str, index_t i ){
 }
 
 void print_str( const string* str ){
-	printf("%s\n",str->data);
+	printf("%s",str->data);
+}
+
+void push( string* s, char c ){
+	appendc(s,c);
+}
+
+char pop( string* s ) {
+	if( empty(s) ){
+		throw( runtime_error, "pop: string is empty");
+	}
+	index_t l = s->size - 1;
+	char c = top(s);
+	s->data[l] = 0;
+	--(s->size);
+	return c;
+}
+
+int empty(string* s){
+	return s->size == 0;
+}
+
+char top( string* s ){
+	if( empty(s) ){
+		throw( runtime_error, "top: string is empty");
+	}
+	return s->data[ s->size - 1 ];
+}
+
+void clear_str( string* str ){
+	str->size = 0;
+	str->data[0] = 0;
 }

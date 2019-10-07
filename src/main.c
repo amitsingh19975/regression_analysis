@@ -4,21 +4,16 @@
 #include "../lib/include/string.h"
 #include "../lib/include/statistics.h"
 #include "../lib/include/utility.h"
+#include "../lib/include/csv_parser.h"
 #include<time.h>
 
 
 int main(int argc, char const *argv[])
 {	
 	INIT_EXCEPTION;
-	string str = csts("Hello World");
-	string temp;
-	TRY{
-		temp = substr(&str,1,3);
-		printf("%s\n",temp.data);
-	}CATCH(runtime_error){
-		printf("Hello: %s\n",exception->what);
-	}ETRY;
-	
+	const char* f = "/home/amit/Desktop/test.csv";
+	parse_csv(f);
+
 /*  srand(time(0));
     size_t n = 3;
     gsl_matrix *mat = gsl_matrix_alloc(n, n);

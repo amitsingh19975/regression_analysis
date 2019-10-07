@@ -1,5 +1,4 @@
 #include "include/exception.h"
-#include "print_util.c"
 
 void throw_helper( int type ){
 	longjmp( __exception_buffer__, type );
