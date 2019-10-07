@@ -1,4 +1,4 @@
-#include "./include/statistics.h";
+#include "./include/statistics.h"
 #include <gsl/gsl_vector.h>
 
 double stats_correlation(gsl_matrix *mat, size_t r1, size_t r2) {

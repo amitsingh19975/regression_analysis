@@ -1,5 +1,4 @@
-#include "string.h"
-#include "exception.c"
+#include "include/string.h"
 
 int __new_str__(string* str, index_t cap){
 	str->capacity = cap;
@@ -7,7 +6,7 @@ int __new_str__(string* str, index_t cap){
 	str->data = (char*)calloc(str->capacity,sizeof(char));
 
 	if( str->data == null ){
-		return STR_ALLOC_ERR;
+		throw(allocation_error,"__new_str__: unable to allocate memory");
 	}else {
 		return 0;
 	}
@@ -27,7 +26,7 @@ void delete_str( string* str ){
 int appendcs( string* dest, const char* src ){
 	index_t src_size = strlen(src);
 	index_t dest_size = dest->size;
-	index_t new_size = dest->size + src_size;
+	index_t new_size = dest_size + src_size;
 	
 	index_t cap = dest->capacity;
 	if( cap <= new_size ){
@@ -36,13 +35,13 @@ int appendcs( string* dest, const char* src ){
 		dest->data = (char*)realloc( dest->data, cap );
 
 		if( dest->data == null ){
-			return STR_ALLOC_ERR;
+			throw(allocation_error,"appendcs: unable to allocate memory");
 		}
 		
 		dest->capacity = cap;
-		dest->size = new_size;
 	}
-
+	dest->size = new_size;
+	
 	for( index_t i = 0; i < src_size; ++i ){
 		dest->data[ dest_size + i ] = src[i];
 	}
@@ -71,7 +70,7 @@ int strcpycs( string* dest, const char* src ){
 		dest->data = (char*)realloc( dest->data, cap );
 	
 		if( dest->data == null ){
-			return STR_ALLOC_ERR;
+			throw(allocation_error,"strcpycs: unable to allocate memory");
 		}
 	}
 	memcpy( dest->data, src, src_size );
@@ -89,7 +88,6 @@ int strcpys( string* dest, string* src ){
 string substr( string* str, index_t i, index_t j ){
 	index_t s = 0, e = 0;
 	index_t str_size = str->size;
-	printf("%ld %ld\n",i,j);
 	if( i > j ){
 		i ^= j;
 		j = i ^ j;
@@ -118,7 +116,6 @@ string substr( string* str, index_t i, index_t j ){
 	while( cap <= e - s ) cap *= 2;
 	__new_str__( &temp, cap );
 	
-	temp.size = e - s;
 	temp.capacity = cap;
 	for( ; s < e; ++s ){
 		appendc(&temp,at(str,s));
@@ -153,7 +150,7 @@ string csts( const char* str ){
 char at( string* str, index_t i ){
 	index_t sz = str->size;
 	if( sz == 0 ){
-		throw( runtime_error,"at : size is zero " );
+		throw( out_of_bound,"at : size is zero " );
 	}
 	if( i < 0 ){
 		i = -i;
@@ -166,6 +163,9 @@ char at( string* str, index_t i ){
 
 char* p_at( string* str, index_t i ){
 	index_t sz = str->size;
+	if( sz == 0 ){
+		throw( out_of_bound, "p_at : size is zero" );
+	}
 	if( i < 0 ){
 		i = -i;
 		i = sz - ( i & sz);
