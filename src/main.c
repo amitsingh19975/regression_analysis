@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 	csv_frame* t = parse_csv(f);
 	
 	write_gsl_matrix(t,3,0,1,2);
-	
+	delete_cframe(t);	
 	CLEAN_EXCEPTION;
     return 0;
 }

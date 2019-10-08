@@ -76,7 +76,7 @@ void insert_cbody( csv_frame* f, csv_row* r ){
 	r->data = null;
 	r->size = 0;
 	r->capacity = 0;
-	free(r);
+	r = null;
 }
 
 string* p_at_crow( csv_row* r, index_t k ){
@@ -96,12 +96,12 @@ csv_row* p_at_cframe( csv_frame* r, index_t k ){
 
 void delete_crow( csv_row* r ){
 	if( r == null ) return;
-	for(index_t i = 0; i < r->capacity; i++) delete_str( &(r->data[i]) );
+	for(index_t i = 0; i < r->size; i++) delete_str( &(r->data[i]) );
 	free(r->data);
 }
 void delete_cframe( csv_frame* f ){
 	if( f == null ) return;
-	for(index_t i = 0; i < f->capacity; i++) delete_crow( &(f->body[i]) );
+	for(index_t i = 0; i < f->size; i++) delete_crow( &(f->body[i]) );
 	delete_crow((f->header));
 	free( f->body );
 }
@@ -226,7 +226,7 @@ csv_frame* general_csv_parser( const char* filename, char separator, char decima
 	if( f->header == null ) {
 		delete_cframe(f);
 		free(f);
-		return null;
+		throw(runtime_error,"general_csv_parser: file is empty");
 	}
 	while( !feof(fp) ){ 
 		insert_cbody( f, parse_row(fp, separator, decimal) ) ;
@@ -237,10 +237,6 @@ csv_frame* general_csv_parser( const char* filename, char separator, char decima
 
 csv_frame* parse_csv( const char* filename ){
 	return general_csv_parser( filename, ',', '.' );
-}
-
-int comp_for_index_t( const void* a, const void* b ){
-	return *(index_t*)a - *(index_t*)b;
 }
 
 void write_gsl_matrix( csv_frame* f, index_t size, ... ){
@@ -277,10 +273,6 @@ void write_gsl_matrix( csv_frame* f, index_t size, ... ){
 		}
         }
 
-	if( idxs != null ){
-		//qsort((void*)idxs, size, sizeof(index_t),comp_for_index_t);
-	}
-	
 	FILE* fp;
 	fp = fopen( "/tmp/gsl_matrix.data", "w" );
 	
