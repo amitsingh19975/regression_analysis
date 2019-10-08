@@ -231,7 +231,6 @@ csv_frame* general_csv_parser( const char* filename, char separator, char decima
 	while( !feof(fp) ){ 
 		insert_cbody( f, parse_row(fp, separator, decimal) ) ;
 	}
-	print_csv(f);
 	fclose(fp);
 	return f;
 } 
@@ -239,3 +238,91 @@ csv_frame* general_csv_parser( const char* filename, char separator, char decima
 csv_frame* parse_csv( const char* filename ){
 	return general_csv_parser( filename, ',', '.' );
 }
+
+int comp_for_index_t( const void* a, const void* b ){
+	return *(index_t*)a - *(index_t*)b;
+}
+
+void write_gsl_matrix( csv_frame* f, index_t size, ... ){
+	if( f == null ){
+		throw( runtime_error, "write_gsl_matrix: csv_frame parameter is null");
+	}
+	if( f->header == null || f->body == null ){
+		throw( runtime_error, "write_gsl_matrix: header or body of csv_frame is null");
+	}
+        if( size < 0 ){
+                throw(runtime_error,"write_gsl_matrix: size cannot be negative value");
+        }
+
+        va_list args;
+        va_start(args,size);
+
+        index_t *idxs = null;
+	index_t rows = f->size;
+	index_t cols = f->header->size;
+
+        if( size > 0 ){
+                idxs = (index_t*)malloc( size * sizeof(index_t));
+                if( idxs == null ){
+                        throw( allocation_error, "write_gsl_matrix: unable to allocate memory");
+                }
+
+        }
+
+        for(index_t i = 0; i < size; i++){
+                idxs[i] = va_arg(args,index_t);
+		if( idxs[i] >= cols ){
+			free(idxs);
+			throw( out_of_bound, "write_gsl_matrix: indics in variadic arguments are out of bound");
+		}
+        }
+
+	if( idxs != null ){
+		qsort((void*)idxs, size, sizeof(index_t),comp_for_index_t);
+	}
+	
+	FILE* fp;
+	fp = fopen( "/tmp/gsl_matrix.data", "w" );
+	
+	index_t obs = f->size;	
+	
+	size = ( size ? size : cols );
+	for(index_t i = 0; i < rows; ++i){
+                for( index_t j = 0; j < size; ++j){
+                        index_t idx = ( idxs == null ? j : idxs[j] );
+			
+			if( empty( &(f->body[i].data[idx]) ) ){
+				--obs;
+				break;
+                        }
+                }
+        }
+	fprintf(fp,"%ld\n%ld\n",size,obs);
+
+	
+	string temp;
+	init_str(&temp);
+	
+	for(index_t i = 0; i < rows; ++i){
+		int flag = 0;
+		for( index_t j = 0; j < size; ++j){
+                        index_t idx = ( idxs == null ? j : idxs[j] );
+			if( empty( &(f->body[i].data[idx]) ) ){
+				flag = 1;
+				break;
+			}
+			appends(&temp, &(f->body[i].data[idx]) );
+			if( j != cols - 1 ){
+				appendc(&temp,' ');
+			}
+		}
+		if( !flag ){
+			fprintf(fp,"%s\n",temp.data);
+		}
+		clear_str(&temp);	
+	}
+
+	fclose(fp);	
+        va_end(args);
+}
+

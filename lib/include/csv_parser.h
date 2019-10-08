@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include "string.h"
 #include "exception.h"
 #include <ctype.h>
@@ -145,4 +146,15 @@ csv_row* parse_row( FILE* fp, const char sep, const char dec);
  */
 csv_frame* general_csv_parser( const char* filename, const char separator, const char decimal);
 
+/**@brief it writes the csv_frame into gsl readable form
+ * into file
+ *
+ * @param f pointer to the csv_frame
+ * @param size type of index_t which tells the number of
+ * arguments that has been passed
+ * @param ... variadic arguments which contains the indices
+ * of columns of CSV parsed table
+ *
+ */
+void write_gsl_matrix( csv_frame* f, index_t size, ... );
 #endif

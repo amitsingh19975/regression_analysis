@@ -11,24 +11,11 @@
 int main(int argc, char const *argv[])
 {	
 	INIT_EXCEPTION;
-	const char* f = "/home/amit/Desktop/test.csv";
-	parse_csv(f);
-
-/*  srand(time(0));
-    size_t n = 3;
-    gsl_matrix *mat = gsl_matrix_alloc(n, n);
-    for (size_t i = 0; i < mat -> size1; i++)
-    {
-        for (size_t j = 0; j < mat -> size2; j++)
-        {
-            gsl_matrix_set(mat, i, j, rand()%100 + 1);
-        }
-    }
-
-    printf("Matrix A: \n");
-    print_matrix(stdout, mat);
-    gsl_matrix_free(mat);
-    */
+	const char* f = "/home/amit/Desktop/cancer_reg.csv";
+	csv_frame* t = parse_csv(f);
+	
+	write_gsl_matrix(t,0);
+	
 	CLEAN_EXCEPTION;
     return 0;
 }

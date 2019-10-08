@@ -37,3 +37,4 @@ size_t exception_print( const char* excep_name, const char* fmt, ... ){
 	va_end(args);
 	return size;
 }
+
