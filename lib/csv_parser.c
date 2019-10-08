@@ -278,7 +278,7 @@ void write_gsl_matrix( csv_frame* f, index_t size, ... ){
         }
 
 	if( idxs != null ){
-		qsort((void*)idxs, size, sizeof(index_t),comp_for_index_t);
+		//qsort((void*)idxs, size, sizeof(index_t),comp_for_index_t);
 	}
 	
 	FILE* fp;
