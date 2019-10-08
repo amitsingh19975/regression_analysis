@@ -149,6 +149,7 @@ csv_frame* general_csv_parser( const char* filename, const char separator, const
 /**@brief it writes the csv_frame into gsl readable form
  * into file
  *
+ * @param filename full path filename to save matrix data
  * @param f pointer to the csv_frame
  * @param size type of index_t which tells the number of
  * arguments that has been passed
@@ -156,5 +157,5 @@ csv_frame* general_csv_parser( const char* filename, const char separator, const
  * of columns of CSV parsed table
  *
  */
-void write_gsl_matrix( csv_frame* f, index_t size, ... );
+void write_gsl_matrix(const char* filename, csv_frame* f, index_t size, ... );
 #endif
