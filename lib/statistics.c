@@ -1,4 +1,4 @@
-#include "./include/statistics.h";
+#include "./include/statistics.h"
 #include <gsl/gsl_vector.h>
 
 double stats_correlation(gsl_matrix *mat, size_t r1, size_t r2) {
@@ -53,4 +53,19 @@ double stats_covariance_m(gsl_matrix *mat, size_t r1, size_t r2, double mean1, d
     gsl_vector_free(data1);
     gsl_vector_free(data2);
     return cov;
+}
+
+double stats_centralized_tss(gsl_vector *vec) {
+    return gsl_stats_tss(vec -> data, 1, vec -> size);
+}
+
+double stats_tss(gsl_vector* vec) {
+    int n = vec -> size;
+    double sum = 0.;
+    for (size_t i = 0; i < n; i++)
+    {
+        double val = gsl_vector_get(vec, i);
+        sum += (val * val);
+    }
+    return sum;
 }
