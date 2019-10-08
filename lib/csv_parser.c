@@ -243,7 +243,7 @@ int comp_for_index_t( const void* a, const void* b ){
 	return *(index_t*)a - *(index_t*)b;
 }
 
-void write_gsl_matrix( csv_frame* f, index_t size, ... ){
+void write_gsl_matrix(const char* filename, csv_frame* f, index_t size, ... ){
 	if( f == null ){
 		throw( runtime_error, "write_gsl_matrix: csv_frame parameter is null");
 	}
@@ -282,7 +282,7 @@ void write_gsl_matrix( csv_frame* f, index_t size, ... ){
 	}
 	
 	FILE* fp;
-	fp = fopen( "/tmp/gsl_matrix.data", "w" );
+	fp = fopen( filename, "w" );
 	
 	index_t obs = f->size;	
 	
