@@ -32,7 +32,7 @@ enum{
 	allocation_error
 };
 
-/**@brief struct for storing type of exception and and message with it*/
+/**@brief struct for storing type of exception and message with it*/
 typedef struct{
 	int type;
 	char what[EXCEPTION_BUFFER_SIZE];
