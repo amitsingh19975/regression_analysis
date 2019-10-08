@@ -38,6 +38,8 @@ int init_str( string* str );
 
 /**@brief __new_str__ creates new string with specified capacity
  *
+ * @param cap type of index_t for assinging intial capacity
+ * to string
  * @param str type of string
  * @return STRING_ERROR code or 0 for no error
  *
@@ -79,7 +81,7 @@ int appendcs( string* dest, const char* src);
  * @return STRING_ERROR code or 0 for no error
  *
  */
-int appendc( string* dest, char c);
+int appendc( string* dest, char src);
 
 /**@brief strcpys is use to copy string to the string
  * 
@@ -182,7 +184,7 @@ void print_str( const string* str );
  * @param str type of string
  *
  */
-void clear_str( string* s );
+void clear_str( string* str );
 
 /**@brief appends the character at the back 
  *
@@ -190,7 +192,7 @@ void clear_str( string* s );
  * @param c type of char
  *
  */
-void push( string* s, char c );
+void push( string* str, char c );
 
 
 /**@brief removes the char from back 
@@ -199,7 +201,7 @@ void push( string* s, char c );
  * @return character from the back
  *
  */
-char pop( string* s );
+char pop( string* str );
 
 /**@brief tells if string is empty or not 
  *
@@ -207,7 +209,7 @@ char pop( string* s );
  * @return 0 for false and 1 for true
  *
  */
-int empty( string* s);
+int empty( string* str );
 
 
 /**@brief gives the character at the last position
@@ -216,5 +218,5 @@ int empty( string* s);
  * @return character from back
  *
  */
-char top( string* s );
+char top( string* str );
 #endif

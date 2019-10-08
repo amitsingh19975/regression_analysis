@@ -39,6 +39,8 @@ size_t sprint(const char* fmt, ... );
 
 /**@brief it is use to print exception
  *
+ * @param excep_name pointer to the char for accepting name
+ * of exception
  * @param fmt type of const char* for formated string
  * @param ... type of varadic args for passing args for fmt
  * @return size of the printed string

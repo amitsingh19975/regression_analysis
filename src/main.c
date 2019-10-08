@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
 	const char* f = "/home/amit/Desktop/cancer_reg.csv";
 	csv_frame* t = parse_csv(f);
 	
-	write_gsl_matrix(t,3,0,1,2);
+	write_gsl_matrix("/tmp/gsl_matrix.data",t,3,0,1,2);
 	delete_cframe(t);	
 	CLEAN_EXCEPTION;
     return 0;
