@@ -4,11 +4,7 @@
 #include<gsl/gsl_vector.h>
 #include<stdio.h>
 
-void print_matrix(FILE*,const gsl_matrix*);
-void print_vector(FILE*,const gsl_vector*);
-
-// Matrix helper fucntion
-// Matrix from a file
+gsl_matrix * matrix_file(const char* file);
 // Submatrix from a matrix
 
 
