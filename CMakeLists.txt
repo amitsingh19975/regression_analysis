@@ -51,3 +51,8 @@ add_subdirectory(src)
 if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING) AND BUILD_TESTING)
 	add_subdirectory(test)
 endif()
+
+
+if (EXISTS ${CMAKE_SOURCE_DIR}/testData)
+file (COPY ${CMAKE_SOURCE_DIR}/testData DESTINATION ${CMAKE_BINARY_DIR})
+endif()

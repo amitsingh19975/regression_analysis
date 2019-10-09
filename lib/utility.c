@@ -1,6 +1,6 @@
 #include"./include/utility.h"
 
-void print_matrix(FILE* file, gsl_matrix * mat) {
+void print_matrix(FILE* file,const gsl_matrix * mat) {
     for (size_t i = 0; i < mat->size1; i++)
     {
         for (size_t j = 0; j < mat->size2; j++)
@@ -10,7 +10,7 @@ void print_matrix(FILE* file, gsl_matrix * mat) {
         fprintf(file, "\n");
     }
 }
-void print_vector(FILE* file, gsl_vector * vec) {
+void print_vector(FILE* file,const gsl_vector * vec) {
     size_t i;
     for (i = 0; i < (vec -> size) - 1; i++)
     {
