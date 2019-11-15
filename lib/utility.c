@@ -11,3 +11,7 @@ gsl_matrix *matrix_file(const char *file) {
     fclose(fptr);
     return mat;
 }
+
+gsl_matrix *matrix_submatrix(gsl_matrix *mat, size_t r1, size_t r2) {
+    
+}

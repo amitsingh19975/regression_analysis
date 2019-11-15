@@ -5,7 +5,8 @@
 #include<stdio.h>
 
 gsl_matrix * matrix_file(const char* file);
-// Submatrix from a matrix
 
+// Submatrix from a matrix
+gsl_matrix *matrix_submatrix(gsl_matrix *mat, size_t r1, size_t r2);
 
 #endif
