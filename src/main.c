@@ -13,6 +13,13 @@
 int main(int argc, char const *argv[])
 {	
 	INIT_EXCEPTION;
+	char csv_file[] = "/home/sphinx/Downloads/datasets/slr1/data1.csv";
+	csv_frame *frame = parse_csv(csv_file);
+	char mat_data_file[] = "/tmp/startmat.data";
+	write_gsl_matrix(mat_data_file, frame, 0);
+	// gsl_matrix *mat = matrix_file(mat_data_file);
+	// print_matrix(stdout, mat);
+	
 	gsl_matrix * mat = matrix_file("../testData/data1");
 	print_matrix(stdout, mat);
 	printf("Tss of y: %g\n", stats_tss(mat, 0));
@@ -41,7 +48,7 @@ int main(int argc, char const *argv[])
 	printf("p-value-f = %g\n", data.stats.p_value_f);
 	printf("R-sqrd = %g\n", data.stats.r_sqrd);
 	printf("Ajusted R-sqrd = %g\n", data.stats.adj_r_sqrd);
-	puts("\n\n");
+	puts("\n\n\n\n\n\n\n\n");
 	print_metrics( &data, 3 );
 	/*
 	gsl_vector *regressor = gsl_vector_alloc((mat->size2));
@@ -56,6 +63,7 @@ int main(int argc, char const *argv[])
 	reg_ols_linear_predict(regressor, coff, cov, &y, &y_err);
 	printf("Predicted y = %g with error = %g\n", y, y_err);
 	*/
+	puts("\n\n\n\n\n\n\n\n");
 	CLEAN_EXCEPTION;
     return 0;
 }
