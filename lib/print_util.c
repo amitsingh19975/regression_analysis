@@ -162,9 +162,9 @@ void print_metrics( const ols_data* s, int sp ){
 		dstring(sdata.f),
 		dstring(sdata.p_value_f),
 	};
-	printf("Mean Dependent Var: %s	S.D. Dependent Var: %s\n", c_str(&stats[0]), c_str(&stats[1]));
-	printf("S.E. Regression	  : %s	R-squred: 	    %s\n", c_str(&stats[2]), c_str(&stats[3]));
-	printf("Adjusted R-squared: %s	F: 		    %s\n", c_str(&stats[4]), c_str(&stats[5]));
+	printf("Mean Dependent Var: %s\nS.D. Dependent Var: %s\n", c_str(&stats[0]), c_str(&stats[1]));
+	printf("S.E. Regression	  : %s\nR-squred: 	    %s\n", c_str(&stats[2]), c_str(&stats[3]));
+	printf("Adjusted R-squared: %s\nF: 		    %s\n", c_str(&stats[4]), c_str(&stats[5]));
 	printf("P-value( F ): 	    %s\n", c_str(&stats[6]));
 	
 	for( int i = 0; i < 7; i++) delete_str(&stats[i]);
