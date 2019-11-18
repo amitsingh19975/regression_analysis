@@ -8,7 +8,7 @@
 #include<gsl/gsl_multifit.h>
 #include<gsl/gsl_randist.h>
 #include <math.h>
-typedef struct OLS_stats_data 
+typedef struct 
 {
     double mean_dependent_var;
     double sd_dependent_var;
@@ -19,7 +19,7 @@ typedef struct OLS_stats_data
     double p_value_f;
 } ols_stats_data;
 
-typedef struct OLS_data 
+typedef struct
 {
     gsl_vector *coefficient;
     gsl_matrix *covariance;

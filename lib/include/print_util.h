@@ -3,10 +3,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stddef.h>
+#include <locale.h>
 #include <stdarg.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_vector.h>
+#include "regression.h"
+#include "string.h"
+
+#ifndef PREC
+	#define PREC 7
+#endif
 
 #ifndef PRINTF_BUFFER_SIZE
 	#define PRINTF_BUFFER_SIZE 100
@@ -54,6 +62,7 @@ size_t exception_print( const char* excep_name, const char* fmt, ... );
 void print_matrix(FILE*,const gsl_matrix*);
 void print_vector(FILE*,const gsl_vector*);
 
+void print_metrics( const ols_data* s, int sp);
 
 #endif
 

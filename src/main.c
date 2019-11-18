@@ -41,7 +41,9 @@ int main(int argc, char const *argv[])
 	printf("p-value-f = %g\n", data.stats.p_value_f);
 	printf("R-sqrd = %g\n", data.stats.r_sqrd);
 	printf("Ajusted R-sqrd = %g\n", data.stats.adj_r_sqrd);
-
+	puts("\n\n");
+	print_metrics( &data, 3 );
+	/*
 	gsl_vector *regressor = gsl_vector_alloc((mat->size2));
 	for (size_t i = 0; i < mat->size2; i++)
 	{
@@ -53,7 +55,7 @@ int main(int argc, char const *argv[])
 	double y, y_err;
 	reg_ols_linear_predict(regressor, coff, cov, &y, &y_err);
 	printf("Predicted y = %g with error = %g\n", y, y_err);
-
+	*/
 	CLEAN_EXCEPTION;
     return 0;
 }
