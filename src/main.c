@@ -30,13 +30,30 @@ int main(int argc, char const *argv[])
 	printf("Σμ² =  %g\n", chisq);
 	printf("σ̂² = %g\n", chisq / ((mat -> size1) - (mat -> size2)));
 	puts("\n\n");
-	ols_data data =  reg_ols_linear_get_data(coff, cov, chisq, df);
+	ols_data data =  reg_ols_linear_get_data(mat, coff, cov, chisq);
 	puts("t-ratio");
 	print_vector(stdout, data.t_ratio);
 	puts("p value");
 	print_vector(stdout, data.p_value);
 	puts("std. error");
 	print_vector(stdout, data.std_error);
+	printf("F = %g\n", data.stats.f);
+	printf("p-value-f = %g\n", data.stats.p_value_f);
+	printf("R-sqrd = %g\n", data.stats.r_sqrd);
+	printf("Ajusted R-sqrd = %g\n", data.stats.adj_r_sqrd);
+
+	gsl_vector *regressor = gsl_vector_alloc((mat->size2));
+	for (size_t i = 0; i < mat->size2; i++)
+	{
+		gsl_vector_set(regressor, i, gsl_matrix_get(mat, 0, i));
+	}
+	gsl_vector_set(regressor, 0, 1);
+	puts("X values from first row");
+	print_vector(stdout, regressor);
+	double y, y_err;
+	reg_ols_linear_predict(regressor, coff, cov, &y, &y_err);
+	printf("Predicted y = %g with error = %g\n", y, y_err);
+
 	CLEAN_EXCEPTION;
     return 0;
 }
